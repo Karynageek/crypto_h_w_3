@@ -47,14 +47,11 @@ contract NFT721 is ERC721 {
     {
         require(
             _exists(_tokenId),
-            "ERC721Metadata: URI set of nonexistent token"
+            "ERC721Metadata: URI query for nonexistent token"
         );
 
         string memory _tokenURI = _tokenURIs[_tokenId];
 
-        return
-            bytes(_tokenURI).length > 0
-                ? string(abi.encodePacked(_tokenURI))
-                : "";
+        return bytes(_tokenURI).length > 0 ? _tokenURI : "";
     }
 }

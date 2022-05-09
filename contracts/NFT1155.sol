@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract GameItems is ERC1155 {
+contract NFT1155 is ERC1155 {
     uint256 public constant Circle = 1;
     uint256 public constant Square = 2;
     uint256 public constant Triangle = 3;
