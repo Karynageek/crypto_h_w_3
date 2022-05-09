@@ -19,23 +19,11 @@ contract NFT721 is ERC721 {
 
         tokenCounter = newTokenID;
 
-        _setTokenURI(newTokenID, _tokenURI);
+        _tokenURIs[newTokenID] = _tokenURI;
 
         emit PermanentURI(_tokenURI, newTokenID);
 
         return newTokenID;
-    }
-
-    function _setTokenURI(uint256 _tokenId, string memory _tokenURI)
-        internal
-        virtual
-    {
-        require(
-            _exists(_tokenId),
-            "ERC721Metadata: URI set of nonexistent token"
-        );
-
-        _tokenURIs[_tokenId] = _tokenURI;
     }
 
     function tokenURI(uint256 _tokenId)
