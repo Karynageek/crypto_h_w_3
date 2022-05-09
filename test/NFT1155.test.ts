@@ -22,7 +22,7 @@ describe('Staking contract', () => {
   describe('mints', () => {
     it('mints successfully', async () => {
       for (let i = 0; i < 3; i++) {
-        let tokenURI = "https://ipfs.io/ipfs/bafybeiarzxfkbmn5zopuyaccge6ddy4l4br6cy4otidmn7btgrseozzxca/" + i + ".json";
+        let tokenURI = "ipfs://bafybeibvwbzitoca3gpo3ogpbqcw7lihwh4jfqtj4ppvrlz5yz7wncc7mm/" + i + ".json";
 
         expect(tokenURI).to.equal(await nft.uri(i));
       }

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "hardhat/console.sol";
 
 contract NFT721 is ERC721 {
     uint256 public tokenCounter;
@@ -10,20 +11,22 @@ contract NFT721 is ERC721 {
 
     event PermanentURI(string _value, uint256 indexed _id);
 
-    constructor() ERC721("Triangle", "TRI") {}
+    constructor() ERC721("Triangle", "TRI") {
+        tokenCounter = 0;
+    }
 
     function mint(string memory _tokenURI) public returns (uint256) {
-        uint256 newTokenID = tokenCounter + 1;
+        uint256 tokenID = tokenCounter;
 
-        _safeMint(msg.sender, newTokenID);
+        _safeMint(msg.sender, tokenID);
 
-        tokenCounter = newTokenID;
+        tokenCounter++;
 
-        _tokenURIs[newTokenID] = _tokenURI;
+        _tokenURIs[tokenID] = _tokenURI;
 
-        emit PermanentURI(_tokenURI, newTokenID);
+        emit PermanentURI(_tokenURI, tokenID);
 
-        return newTokenID;
+        return tokenID;
     }
 
     function tokenURI(uint256 _tokenId)
@@ -38,8 +41,8 @@ contract NFT721 is ERC721 {
             "ERC721Metadata: URI query for nonexistent token"
         );
 
-        string memory _tokenURI = _tokenURIs[_tokenId];
+        return _tokenURIs[_tokenId];
 
-        return bytes(_tokenURI).length > 0 ? _tokenURI : "";
+        // return bytes(_tokenURI).length > 0 ? _tokenURI : "";
     }
 }

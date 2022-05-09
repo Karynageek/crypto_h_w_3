@@ -9,7 +9,7 @@ describe('Staking contract', () => {
   let owner: SignerWithAddress;
   let addr1: SignerWithAddress;
   let addrs: SignerWithAddress[];
-  const tokenURI = "https://ipfs.io/ipfs/QmPShXrfttmnNtE9V6QmcrR8F29V7HMuMrsRyQyUXs35id";
+  const tokenURI = "ipfs://bafkreib7rk44lfgqzt6jfvma4khx6sgag6edmp4d2avt67flk5wueqfjc4";
 
   beforeEach(async () => {
     [owner, addr1, ...addrs] = await ethers.getSigners();
@@ -24,32 +24,32 @@ describe('Staking contract', () => {
     it('mints successfully', async () => {
       const ownerBalanceBefore = await nft.balanceOf(owner.address);
 
+      const tokenId = await nft.callStatic.mint(tokenURI);
       const result = await nft.mint(tokenURI);
-
-      const ownerBalanceAfter = await nft.balanceOf(owner.address);
 
       const tokenCount = await nft.tokenCounter();
 
+      const ownerBalanceAfter = await nft.balanceOf(owner.address);
+
       expect(ownerBalanceAfter).to.equal(ownerBalanceBefore.add(tokenCount));
-      expect(tokenURI).to.equal(await nft.tokenURI(tokenCount));
+      expect(tokenURI).to.equal(await nft.tokenURI(tokenId));
 
       await expect(result).to.emit(nft, "PermanentURI")
-        .withArgs(tokenURI, tokenCount);
+        .withArgs(tokenURI, tokenId);
     })
 
   })
 
   describe('gets token URI', () => {
     it('gets token URI successfully', async () => {
+      const tokenId = await nft.callStatic.mint(tokenURI);
       await nft.mint(tokenURI);
 
-      const tokenCount = await nft.tokenCounter();
-
-      expect(tokenURI).to.equal(await nft.tokenURI(tokenCount));
+      expect(tokenURI).to.equal(await nft.tokenURI(tokenId));
     })
 
     it('rejects nonexistent token', async () => {
-      await expect(nft.tokenURI(0)).to.be.revertedWith('ERC721Metadata: URI query for nonexistent token');
+      await expect(nft.tokenURI(1000)).to.be.revertedWith('ERC721Metadata: URI query for nonexistent token');
     })
   })
 
