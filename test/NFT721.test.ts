@@ -4,7 +4,7 @@ import { NFT721__factory } from "../typechain-types/factories/contracts/NFT721__
 import { NFT721 } from "../typechain-types/contracts/NFT721";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
-describe('Staking contract', () => {
+describe('ERC721 contract', () => {
   let nft: NFT721;
   let owner: SignerWithAddress;
   let addr1: SignerWithAddress;
