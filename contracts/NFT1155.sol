@@ -5,13 +5,15 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NFT1155 is ERC1155 {
+    string public name = "Geometric Shapes";
+
     uint256 public constant Circle = 0;
     uint256 public constant Square = 1;
     uint256 public constant Triangle = 2;
 
     constructor()
         ERC1155(
-            "ipfs://bafybeibvwbzitoca3gpo3ogpbqcw7lihwh4jfqtj4ppvrlz5yz7wncc7mm/{id}.json"
+            "ipfs://bafybeihkafai6vlryooxx6b4dv3nkjoxfjeumu6dn4wxgzeyapzdyr62nm/{id}.json"
         )
     {
         _mint(msg.sender, Circle, 1, "");
@@ -28,7 +30,7 @@ contract NFT1155 is ERC1155 {
         return
             string(
                 abi.encodePacked(
-                    "ipfs://bafybeibvwbzitoca3gpo3ogpbqcw7lihwh4jfqtj4ppvrlz5yz7wncc7mm/",
+                    "ipfs://bafybeihkafai6vlryooxx6b4dv3nkjoxfjeumu6dn4wxgzeyapzdyr62nm/",
                     Strings.toString(_tokenId),
                     ".json"
                 )
